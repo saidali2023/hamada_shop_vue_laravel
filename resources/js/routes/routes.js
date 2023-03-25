@@ -11,11 +11,20 @@ import GlobalHome from '../components/GlobalHome.vue';
 import SingleProduct from '../components/SingleProduct.vue';
 import ExampleComponent from '../components/ExampleComponent.vue'
 
+import WishList from '../components/WishList.vue'
+import MyAccount from '../components/MyAccount.vue'
+import CheckOut from '../components/CheckOut.vue'
+import Cart from '../components/Cart.vue'
+
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
     { path: '/product/:slug/:id', component: SingleProduct, name: 'SingleProduct' },
     { path: '/register', component: Register, name: 'Register' },
     { path: '/login', component: Login, name: 'Login' },
+    { path: '/wishlist', component: WishList, name: 'WishList' },
+    { path: '/myaccount', component: MyAccount, name: 'MyAccount' },
+    { path: '/checkout', component: CheckOut, name: 'CheckOut' },
+    { path: '/cart', component: Cart, name: 'Cart' },
     { path: '/examplecomponent', component: ExampleComponent, name: 'ExampleComponent' },
 ];
 

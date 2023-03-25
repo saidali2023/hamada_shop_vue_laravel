@@ -23,6 +23,13 @@ Vue.component('login', require('./components/Login.vue').default);
 Vue.component('myfooter', require('./components/MyFooter.vue').default);
 Vue.component('home-page', require('./components/HomePage.vue').default);
 
+Vue.component('wishlist', require('./components/WishList.vue').default);
+Vue.component('myaccount', require('./components/MyAccount.vue').default);
+Vue.component('checkout', require('./components/CheckOut.vue').default);
+Vue.component('cart', require('./components/Cart.vue').default);
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
