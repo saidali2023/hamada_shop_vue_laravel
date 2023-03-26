@@ -7,7 +7,9 @@
 <script>
     export default {
       created(){
-          this.updateToken()
+          this.updateToken();
+          console.log(this.$store.state.userToken);
+
       },
       methods:{
          updateToken(){

@@ -1908,7 +1908,36 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      carts: {}
+    };
+  },
+  created: function created() {
+    this.getPosts();
+    console.log(this.$store.state.userToken);
+    console.log(this.carts);
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5NzYwMTQ2LCJleHAiOjE2Nzk3NjM3NDYsIm5iZiI6MTY3OTc2MDE0NiwianRpIjoiVlJyWkJvMTZtWUlrMWs2TCIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.-Y1OCaD5Zw7ussAv7hK132PgrGB7t6vLgpUlytT41Dw'
+      };
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/product/carts', headers).then(function (res) {
+        console.log('Component mountvvvv.');
+        console.log(res.data.data);
+        _this.carts = res.data;
+
+        // localStorage.setItem('posts',JSON.stringify(this.carts));
+      }).then(function (err) {
+        return console.log(err);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -1954,6 +1983,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.updateToken();
+    console.log(this.$store.state.userToken);
   },
   methods: {
     updateToken: function updateToken() {
@@ -1989,22 +2019,45 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: {},
+      categotries: {},
+      banners: {},
       searchpost: '',
       issearching: false
     };
   },
   created: function created() {
-    this.getPosts();
+    this.getProducts();
+    this.getCategotries();
+    this.getBanners();
     console.log(this.$store.state.userToken);
-    console.log('Component mountedddd.');
-    console.log(this.posts);
+    // console.log('Component mountedddd.');
+    // console.log(this.posts);
   },
+
   methods: {
-    getPosts: function getPosts(page) {
+    getProducts: function getProducts(page) {
       var _this = this;
       axios.get('https://elnamat.com/poems/eshop/api/buyers/products').then(function (res) {
         _this.posts = res.data;
         localStorage.setItem('posts', JSON.stringify(_this.posts));
+      }).then(function (err) {
+        return console.log(err);
+      });
+    },
+    getCategotries: function getCategotries() {
+      var _this2 = this;
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/categotries').then(function (res) {
+        _this2.categotries = res.data;
+        localStorage.setItem('categotries', JSON.stringify(_this2.categotries));
+      }).then(function (err) {
+        return console.log(err);
+      });
+    },
+    getBanners: function getBanners() {
+      var _this3 = this;
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/banners').then(function (res) {
+        _this3.banners = res.data;
+        localStorage.setItem('banners', JSON.stringify(_this3.banners));
       }).then(function (err) {
         return console.log(err);
       });
@@ -2059,7 +2112,36 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      userData: ''
+    };
+  },
+  created: function created() {
+    this.getPosts();
+    console.log(this.$store.state.userToken);
+    console.log(this.userData);
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5ODAzNjY3LCJleHAiOjE2Nzk4MDcyNjcsIm5iZiI6MTY3OTgwMzY2NywianRpIjoiR0N4MW91dWxUVTdNV29zTSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.LBcgJczMFPX6db2LAPuaDKM09HlCYuj8QbI7XziFttk'
+      };
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/buyer-data', headers).then(function (res) {
+        console.log('Component mooooooo.');
+        console.log(res.data.data);
+        _this.userData = res.data.data;
+
+        // localStorage.setItem('posts',JSON.stringify(this.carts));
+      }).then(function (err) {
+        return console.log(err);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2230,7 +2312,36 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      wishlists: {}
+    };
+  },
+  created: function created() {
+    this.getPosts();
+    console.log(this.$store.state.userToken);
+    console.log(this.wishlists);
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5NzY3MDAwLCJleHAiOjE2Nzk3NzA2MDAsIm5iZiI6MTY3OTc2NzAwMCwianRpIjoiWE1MdWh0b0paRDhMVVlRNSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.EGRsiv7NKE2F5XE9lBjGOPyaX1oi2_-FV_HK0QDsSKk'
+      };
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/product/wishlists', headers).then(function (res) {
+        console.log('Component mountvvvv.');
+        console.log(res.data.data);
+        _this.wishlists = res.data;
+
+        // localStorage.setItem('posts',JSON.stringify(this.carts));
+      }).then(function (err) {
+        return console.log(err);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2248,12 +2359,42 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
+  return _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "page-content"
+  }, [_c("div", {
+    staticClass: "cart"
+  }, [_c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-9"
+  }, [_c("table", {
+    staticClass: "table table-cart table-mobile"
+  }, [_vm._m(2), _vm._v(" "), _c("tbody", [_vm._l(_vm.carts.data, function (post) {
+    return _c("tr", {
+      key: post.id
+    }, [_c("td", {
+      staticClass: "product-col"
+    }, [_c("div", {
+      staticClass: "product"
+    }, [_vm._m(3, true), _vm._v(" "), _c("h3", {
+      staticClass: "product-title"
+    }, [_c("a", {
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v(_vm._s(post.name))])])])]), _vm._v(" "), _c("td", {
+      staticClass: "price-col"
+    }, [_vm._v("$84.00")]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c("td", {
+      staticClass: "total-col"
+    }, [_vm._v("$84.00")]), _vm._v(" "), _vm._m(5, true)]);
+  }), _vm._v(" "), _vm._m(6)], 2)]), _vm._v(" "), _vm._m(7)]), _vm._v(" "), _vm._m(8)])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("div", {
+  return _c("div", {
     staticClass: "page-header text-center",
     staticStyle: {
       "background-image": "url('front/assets/images/page-header-bg.jpg')"
@@ -2262,7 +2403,11 @@ var staticRenderFns = [function () {
     staticClass: "container"
   }, [_c("h1", {
     staticClass: "page-title"
-  }, [_vm._v("Shopping Cart"), _c("span", [_vm._v("Shop")])])])]), _vm._v(" "), _c("nav", {
+  }, [_vm._v("Shopping Cart"), _c("span", [_vm._v("Shop")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("nav", {
     staticClass: "breadcrumb-nav",
     attrs: {
       "aria-label": "breadcrumb"
@@ -2288,23 +2433,15 @@ var staticRenderFns = [function () {
     attrs: {
       "aria-current": "page"
     }
-  }, [_vm._v("Shopping Cart")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "page-content"
-  }, [_c("div", {
-    staticClass: "cart"
-  }, [_c("div", {
-    staticClass: "container"
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-lg-9"
-  }, [_c("table", {
-    staticClass: "table table-cart table-mobile"
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Quantity")]), _vm._v(" "), _c("th", [_vm._v("Total")]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", {
-    staticClass: "product-col"
-  }, [_c("div", {
-    staticClass: "product"
-  }, [_c("figure", {
+  }, [_vm._v("Shopping Cart")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Quantity")]), _vm._v(" "), _c("th", [_vm._v("Total")]), _vm._v(" "), _c("th")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("figure", {
     staticClass: "product-media"
   }, [_c("a", {
     attrs: {
@@ -2315,15 +2452,11 @@ var staticRenderFns = [function () {
       src: "front/assets/images/products/table/product-1.jpg",
       alt: "Product image"
     }
-  })])]), _vm._v(" "), _c("h3", {
-    staticClass: "product-title"
-  }, [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Beige knitted elastic runner shoes")])])])]), _vm._v(" "), _c("td", {
-    staticClass: "price-col"
-  }, [_vm._v("$84.00")]), _vm._v(" "), _c("td", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
     staticClass: "quantity-col"
   }, [_c("div", {
     staticClass: "cart-product-quantity"
@@ -2338,15 +2471,21 @@ var staticRenderFns = [function () {
       "data-decimals": "0",
       required: ""
     }
-  })])]), _vm._v(" "), _c("td", {
-    staticClass: "total-col"
-  }, [_vm._v("$84.00")]), _vm._v(" "), _c("td", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
     staticClass: "remove-col"
   }, [_c("button", {
     staticClass: "btn-remove"
   }, [_c("i", {
     staticClass: "icon-close"
-  })])])]), _vm._v(" "), _c("tr", [_c("td", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("td", {
     staticClass: "product-col"
   }, [_c("div", {
     staticClass: "product"
@@ -2392,7 +2531,11 @@ var staticRenderFns = [function () {
     staticClass: "btn-remove"
   }, [_c("i", {
     staticClass: "icon-close"
-  })])])])])]), _vm._v(" "), _c("div", {
+  })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "cart-bottom"
   }, [_c("div", {
     staticClass: "cart-discount"
@@ -2425,7 +2568,11 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", [_vm._v("UPDATE CART")]), _c("i", {
     staticClass: "icon-refresh"
-  })])])]), _vm._v(" "), _c("aside", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("aside", {
     staticClass: "col-lg-3"
   }, [_c("div", {
     staticClass: "summary summary-cart"
@@ -2505,7 +2652,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", [_vm._v("CONTINUE SHOPPING")]), _c("i", {
     staticClass: "icon-refresh"
-  })])])])])])])]);
+  })])]);
 }];
 render._withStripped = true;
 
@@ -2974,11 +3121,56 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+  return _c("div", [_c("div", {
+    staticClass: "container"
+  }, [_c("h2", {
+    staticClass: "title text-center mb-4"
+  }, [_vm._v("Explore Popular Categories")]), _vm._v(" "), _c("div", {
+    staticClass: "cat-blocks-container"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_vm._l(_vm.categotries.data, function (categotry) {
+    return _c("div", {
+      key: categotry.id,
+      staticClass: "col-6 col-sm-4 col-lg-2"
+    }, [_c("a", {
+      staticClass: "cat-block",
+      attrs: {
+        href: "category.html"
+      }
+    }, [_c("figure", [_c("span", [_c("img", {
+      attrs: {
+        src: categotry.icon,
+        alt: "Category image"
+      }
+    })])]), _vm._v(" "), _c("h3", {
+      staticClass: "cat-block-title"
+    }, [_vm._v(_vm._s(categotry.title))])])]);
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "row justify-content-center"
+  }, _vm._l(_vm.banners.data, function (banner) {
+    return _c("div", {
+      key: banner.id,
+      staticClass: "col-md-6 col-lg-4"
+    }, [_c("div", {
+      staticClass: "banner banner-overlay banner-overlay-light"
+    }, [_c("a", {
+      attrs: {
+        href: "#"
+      }
+    }, [_c("img", {
+      attrs: {
+        src: banner.banner,
+        alt: "Banner"
+      }
+    })]), _vm._v(" "), _vm._m(5, true)])]);
+  }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "page-content"
   }, [_c("div", {
     staticClass: "container"
-  }, [_vm._m(2), _vm._v(" "), _c("div", {
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "products"
   }, [_c("div", {
     staticClass: "row"
@@ -3002,9 +3194,9 @@ var render = function render() {
         src: post.cover_img,
         alt: "Product image"
       }
-    })]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true)]), _vm._v(" "), _c("div", {
+    })]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _vm._m(8, true)]), _vm._v(" "), _c("div", {
       staticClass: "product-body"
-    }, [_vm._m(5, true), _vm._v(" "), _c("h3", {
+    }, [_vm._m(9, true), _vm._v(" "), _c("h3", {
       staticClass: "product-title"
     }, [_c("a", {
       attrs: {
@@ -3016,60 +3208,126 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(post.name))])], 1)]), _vm._v(" "), _c("div", {
       staticClass: "product-price"
-    }, [_vm._v("\n                                            $50.00\n                                        ")]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _vm._m(7, true)])])]);
-  }), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19)], 2), _vm._v(" "), _vm._m(20)]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                                            $50.00\n                                        ")]), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _vm._m(11, true)])])]);
+  }), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm._m(22), _vm._v(" "), _vm._m(23)], 2), _vm._v(" "), _vm._m(24)]), _vm._v(" "), _c("div", {
     staticClass: "sidebar-filter-overlay"
-  }), _vm._v(" "), _vm._m(21)])])]);
+  }), _vm._v(" "), _vm._m(25)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "page-header text-center",
-    staticStyle: {
-      "background-image": "url('front/assets/images/page-header-bg.jpg')"
+    staticClass: "col-6 col-sm-4 col-lg-2"
+  }, [_c("a", {
+    staticClass: "cat-block",
+    attrs: {
+      href: "category.html"
     }
-  }, [_c("div", {
-    staticClass: "container"
-  }, [_c("h1", {
-    staticClass: "page-title"
-  }, [_vm._v("Boxed No Sidebar"), _c("span", [_vm._v("Shop")])])])]);
+  }, [_c("figure", [_c("span", [_c("img", {
+    attrs: {
+      src: "front/assets/images/demos/demo-4/cats/2.png",
+      alt: "Category image"
+    }
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "cat-block-title"
+  }, [_vm._v("Digital Cameras")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("nav", {
-    staticClass: "breadcrumb-nav mb-2",
-    attrs: {
-      "aria-label": "breadcrumb"
-    }
-  }, [_c("div", {
-    staticClass: "container"
-  }, [_c("ol", {
-    staticClass: "breadcrumb"
-  }, [_c("li", {
-    staticClass: "breadcrumb-item"
+  return _c("div", {
+    staticClass: "col-6 col-sm-4 col-lg-2"
   }, [_c("a", {
+    staticClass: "cat-block",
     attrs: {
-      href: "index.html"
+      href: "category.html"
     }
-  }, [_vm._v("Home")])]), _vm._v(" "), _c("li", {
-    staticClass: "breadcrumb-item"
+  }, [_c("figure", [_c("span", [_c("img", {
+    attrs: {
+      src: "front/assets/images/demos/demo-4/cats/3.png",
+      alt: "Category image"
+    }
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "cat-block-title"
+  }, [_vm._v("Smart Phones")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-6 col-sm-4 col-lg-2"
+  }, [_c("a", {
+    staticClass: "cat-block",
+    attrs: {
+      href: "category.html"
+    }
+  }, [_c("figure", [_c("span", [_c("img", {
+    attrs: {
+      src: "front/assets/images/demos/demo-4/cats/4.png",
+      alt: "Category image"
+    }
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "cat-block-title"
+  }, [_vm._v("Televisions")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-6 col-sm-4 col-lg-2"
+  }, [_c("a", {
+    staticClass: "cat-block",
+    attrs: {
+      href: "category.html"
+    }
+  }, [_c("figure", [_c("span", [_c("img", {
+    attrs: {
+      src: "front/assets/images/demos/demo-4/cats/5.png",
+      alt: "Category image"
+    }
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "cat-block-title"
+  }, [_vm._v("Audio")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-6 col-sm-4 col-lg-2"
+  }, [_c("a", {
+    staticClass: "cat-block",
+    attrs: {
+      href: "category.html"
+    }
+  }, [_c("figure", [_c("span", [_c("img", {
+    attrs: {
+      src: "front/assets/images/demos/demo-4/cats/6.png",
+      alt: "Category image"
+    }
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "cat-block-title"
+  }, [_vm._v("Smart Watches")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "banner-content"
+  }, [_c("h4", {
+    staticClass: "banner-subtitle"
   }, [_c("a", {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Shop")])]), _vm._v(" "), _c("li", {
-    staticClass: "breadcrumb-item"
+  }, [_vm._v("Time Deals")])]), _vm._v(" "), _c("h3", {
+    staticClass: "banner-title"
   }, [_c("a", {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("No Sidebar")])]), _vm._v(" "), _c("li", {
-    staticClass: "breadcrumb-item active",
+  }, [_c("strong", [_vm._v("Bose SoundSport")]), _vm._v(" "), _c("br"), _vm._v("Time Deal -30%")])]), _vm._v(" "), _c("a", {
+    staticClass: "banner-link",
     attrs: {
-      "aria-current": "page"
+      href: "#"
     }
-  }, [_vm._v("Boxed")])])])]);
+  }, [_vm._v("Shop Now"), _c("i", {
+    staticClass: "icon-long-arrow-right"
+  })])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -5227,12 +5485,54 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
+  return _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "page-content"
+  }, [_c("div", {
+    staticClass: "dashboard"
+  }, [_c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8 col-lg-9"
+  }, [_c("div", {
+    staticClass: "tab-content"
+  }, [_c("div", {
+    staticClass: "tab-pane fade show active",
+    attrs: {
+      id: "tab-dashboard",
+      role: "tabpanel",
+      "aria-labelledby": "tab-dashboard-link"
+    }
+  }, [_c("p", [_vm._v("Hello "), _c("span", {
+    staticClass: "font-weight-normal text-dark"
+  }, [_vm._v(_vm._s(_vm.userData.name))]), _vm._v(" (not "), _c("span", {
+    staticClass: "font-weight-normal text-dark"
+  }, [_vm._v("User")]), _vm._v("? "), _c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Log out")]), _vm._v(")\n                  "), _c("br"), _vm._v("\n                  From your account dashboard you can view your "), _c("a", {
+    staticClass: "tab-trigger-link link-underline",
+    attrs: {
+      href: "#tab-orders"
+    }
+  }, [_vm._v("recent orders")]), _vm._v(", manage your "), _c("a", {
+    staticClass: "tab-trigger-link",
+    attrs: {
+      href: "#tab-address"
+    }
+  }, [_vm._v("shipping and billing addresses")]), _vm._v(", and "), _c("a", {
+    staticClass: "tab-trigger-link",
+    attrs: {
+      href: "#tab-account"
+    }
+  }, [_vm._v("edit your password and account details")]), _vm._v(".")])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6)])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("div", {
+  return _c("div", {
     staticClass: "page-header text-center",
     staticStyle: {
       "background-image": "url('front/front/front/assets/images/page-header-bg.jpg')"
@@ -5241,7 +5541,11 @@ var staticRenderFns = [function () {
     staticClass: "container"
   }, [_c("h1", {
     staticClass: "page-title"
-  }, [_vm._v("My Account"), _c("span", [_vm._v("Shop")])])])]), _vm._v(" "), _c("nav", {
+  }, [_vm._v("My Account"), _c("span", [_vm._v("Shop")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("nav", {
     staticClass: "breadcrumb-nav mb-3",
     attrs: {
       "aria-label": "breadcrumb"
@@ -5267,15 +5571,11 @@ var staticRenderFns = [function () {
     attrs: {
       "aria-current": "page"
     }
-  }, [_vm._v("My Account")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "page-content"
-  }, [_c("div", {
-    staticClass: "dashboard"
-  }, [_c("div", {
-    staticClass: "container"
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("aside", {
+  }, [_vm._v("My Account")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("aside", {
     staticClass: "col-md-4 col-lg-3"
   }, [_c("ul", {
     staticClass: "nav nav-dashboard flex-column mb-3 mb-md-0",
@@ -5349,41 +5649,11 @@ var staticRenderFns = [function () {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Sign Out")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-8 col-lg-9"
-  }, [_c("div", {
-    staticClass: "tab-content"
-  }, [_c("div", {
-    staticClass: "tab-pane fade show active",
-    attrs: {
-      id: "tab-dashboard",
-      role: "tabpanel",
-      "aria-labelledby": "tab-dashboard-link"
-    }
-  }, [_c("p", [_vm._v("Hello "), _c("span", {
-    staticClass: "font-weight-normal text-dark"
-  }, [_vm._v("User")]), _vm._v(" (not "), _c("span", {
-    staticClass: "font-weight-normal text-dark"
-  }, [_vm._v("User")]), _vm._v("? "), _c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Log out")]), _vm._v(")\n                  "), _c("br"), _vm._v("\n                  From your account dashboard you can view your "), _c("a", {
-    staticClass: "tab-trigger-link link-underline",
-    attrs: {
-      href: "#tab-orders"
-    }
-  }, [_vm._v("recent orders")]), _vm._v(", manage your "), _c("a", {
-    staticClass: "tab-trigger-link",
-    attrs: {
-      href: "#tab-address"
-    }
-  }, [_vm._v("shipping and billing addresses")]), _vm._v(", and "), _c("a", {
-    staticClass: "tab-trigger-link",
-    attrs: {
-      href: "#tab-account"
-    }
-  }, [_vm._v("edit your password and account details")]), _vm._v(".")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Sign Out")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "tab-pane fade",
     attrs: {
       id: "tab-orders",
@@ -5397,7 +5667,11 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", [_vm._v("GO SHOP")]), _c("i", {
     staticClass: "icon-long-arrow-right"
-  })])]), _vm._v(" "), _c("div", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "tab-pane fade",
     attrs: {
       id: "tab-downloads",
@@ -5411,7 +5685,11 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", [_vm._v("GO SHOP")]), _c("i", {
     staticClass: "icon-long-arrow-right"
-  })])]), _vm._v(" "), _c("div", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "tab-pane fade",
     attrs: {
       id: "tab-address",
@@ -5448,7 +5726,11 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("Edit "), _c("i", {
     staticClass: "icon-edit"
-  })])])])])])])]), _vm._v(" "), _c("div", {
+  })])])])])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "tab-pane fade",
     attrs: {
       id: "tab-account",
@@ -5513,7 +5795,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", [_vm._v("SAVE CHANGES")]), _vm._v(" "), _c("i", {
     staticClass: "icon-long-arrow-right"
-  })])])])])])])])])])]);
+  })])])]);
 }];
 render._withStripped = true;
 
@@ -6949,12 +7231,34 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
+  return _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "page-content"
+  }, [_c("div", {
+    staticClass: "container"
+  }, [_c("table", {
+    staticClass: "table table-wishlist table-mobile"
+  }, [_vm._m(2), _vm._v(" "), _c("tbody", [_vm._l(_vm.wishlists.data, function (post) {
+    return _c("tr", {
+      key: post.id
+    }, [_c("td", {
+      staticClass: "product-col"
+    }, [_c("div", {
+      staticClass: "product"
+    }, [_vm._m(3, true), _vm._v(" "), _c("h3", {
+      staticClass: "product-title"
+    }, [_c("a", {
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v(_vm._s(post.name))])])])]), _vm._v(" "), _c("td", {
+      staticClass: "price-col"
+    }, [_vm._v("$84.00")]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true)]);
+  }), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8)], 2)]), _vm._v(" "), _vm._m(9)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("div", {
+  return _c("div", {
     staticClass: "page-header text-center",
     staticStyle: {
       "background-image": "url('front/assets/images/page-header-bg.jpg')"
@@ -6963,7 +7267,11 @@ var staticRenderFns = [function () {
     staticClass: "container"
   }, [_c("h1", {
     staticClass: "page-title"
-  }, [_vm._v("Wishlist"), _c("span", [_vm._v("Shop")])])])]), _vm._v(" "), _c("nav", {
+  }, [_vm._v("Wishlist"), _c("span", [_vm._v("Shop")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("nav", {
     staticClass: "breadcrumb-nav",
     attrs: {
       "aria-label": "breadcrumb"
@@ -6989,17 +7297,15 @@ var staticRenderFns = [function () {
     attrs: {
       "aria-current": "page"
     }
-  }, [_vm._v("Wishlist")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "page-content"
-  }, [_c("div", {
-    staticClass: "container"
-  }, [_c("table", {
-    staticClass: "table table-wishlist table-mobile"
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Stock Status")]), _vm._v(" "), _c("th"), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", {
-    staticClass: "product-col"
-  }, [_c("div", {
-    staticClass: "product"
-  }, [_c("figure", {
+  }, [_vm._v("Wishlist")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Product")]), _vm._v(" "), _c("th", [_vm._v("Price")]), _vm._v(" "), _c("th", [_vm._v("Stock Status")]), _vm._v(" "), _c("th"), _vm._v(" "), _c("th")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("figure", {
     staticClass: "product-media"
   }, [_c("a", {
     attrs: {
@@ -7010,19 +7316,19 @@ var staticRenderFns = [function () {
       src: "front/assets/images/products/table/product-1.jpg",
       alt: "Product image"
     }
-  })])]), _vm._v(" "), _c("h3", {
-    staticClass: "product-title"
-  }, [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Beige knitted elastic runner shoes")])])])]), _vm._v(" "), _c("td", {
-    staticClass: "price-col"
-  }, [_vm._v("$84.00")]), _vm._v(" "), _c("td", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
     staticClass: "stock-col"
   }, [_c("span", {
     staticClass: "in-stock"
-  }, [_vm._v("In stock")])]), _vm._v(" "), _c("td", {
+  }, [_vm._v("In stock")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
     staticClass: "action-col"
   }, [_c("div", {
     staticClass: "dropdown"
@@ -7052,13 +7358,21 @@ var staticRenderFns = [function () {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("The best option")])])])]), _vm._v(" "), _c("td", {
+  }, [_vm._v("The best option")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
     staticClass: "remove-col"
   }, [_c("button", {
     staticClass: "btn-remove"
   }, [_c("i", {
     staticClass: "icon-close"
-  })])])]), _vm._v(" "), _c("tr", [_c("td", {
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("td", {
     staticClass: "product-col"
   }, [_c("div", {
     staticClass: "product"
@@ -7097,7 +7411,11 @@ var staticRenderFns = [function () {
     staticClass: "btn-remove"
   }, [_c("i", {
     staticClass: "icon-close"
-  })])])]), _vm._v(" "), _c("tr", [_c("td", {
+  })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("td", {
     staticClass: "product-col"
   }, [_c("div", {
     staticClass: "product"
@@ -7134,7 +7452,11 @@ var staticRenderFns = [function () {
     staticClass: "btn-remove"
   }, [_c("i", {
     staticClass: "icon-close"
-  })])])])])]), _vm._v(" "), _c("div", {
+  })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
     staticClass: "wishlist-share"
   }, [_c("div", {
     staticClass: "social-icons social-icons-sm mb-2"
@@ -7185,7 +7507,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "icon-pinterest"
-  })])])])])])]);
+  })])])]);
 }];
 render._withStripped = true;
 

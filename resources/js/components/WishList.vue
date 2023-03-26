@@ -29,7 +29,7 @@
 						</thead>
 
 						<tbody>
-							<tr>
+							<tr  v-for="post in wishlists.data" :key="post.id">
 								<td class="product-col">
 									<div class="product">
 										<figure class="product-media">
@@ -39,7 +39,7 @@
 										</figure>
 
 										<h3 class="product-title">
-											<a href="#">Beige knitted elastic runner shoes</a>
+											<a href="#">{{post.name}}</a>
 										</h3><!-- End .product-title -->
 									</div><!-- End .product -->
 								</td>
@@ -120,6 +120,35 @@
 </template>
 <script>
   export default {
+    data(){
+      return{
+          wishlists:{},
+      }
+    },
+    created() {
+        this.getPosts();
+        console.log(this.$store.state.userToken);
 
+        console.log(this.wishlists);
+     },
+      methods: {
+          getPosts(){
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5NzY3MDAwLCJleHAiOjE2Nzk3NzA2MDAsIm5iZiI6MTY3OTc2NzAwMCwianRpIjoiWE1MdWh0b0paRDhMVVlRNSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.EGRsiv7NKE2F5XE9lBjGOPyaX1oi2_-FV_HK0QDsSKk',
+            };
+              axios.get('https://elnamat.com/poems/eshop/api/buyers/product/wishlists',headers)
+              .then(res => {
+                console.log('Component mountvvvv.');
+
+                console.log(res.data.data);
+
+                  this.wishlists = res.data;
+
+                  // localStorage.setItem('posts',JSON.stringify(this.carts));
+              })
+              .then(err => console.log(err))
+          }
+     }
   }
 </script>

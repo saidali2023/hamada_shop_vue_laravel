@@ -45,7 +45,7 @@
                      <div class="col-md-8 col-lg-9">
                        <div class="tab-content">
                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
-                     <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>)
+                     <p>Hello <span class="font-weight-normal text-dark">{{userData.name}}</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>)
                      <br>
                      From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
                    </div><!-- .End .tab-pane -->
@@ -139,6 +139,35 @@
 </template>
 <script>
   export default {
+    data(){
+      return{
+          userData:'',
+      }
+    },
+    created() {
+        this.getPosts();
+        console.log(this.$store.state.userToken);
 
+        console.log(this.userData);
+     },
+    methods: {
+        getPosts(){
+          const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5ODAzNjY3LCJleHAiOjE2Nzk4MDcyNjcsIm5iZiI6MTY3OTgwMzY2NywianRpIjoiR0N4MW91dWxUVTdNV29zTSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.LBcgJczMFPX6db2LAPuaDKM09HlCYuj8QbI7XziFttk',
+          };
+            axios.get('https://elnamat.com/poems/eshop/api/buyers/buyer-data',headers)
+            .then(res => {
+              console.log('Component mooooooo.');
+
+              console.log(res.data.data);
+
+                this.userData = res.data.data;
+
+                // localStorage.setItem('posts',JSON.stringify(this.carts));
+            })
+            .then(err => console.log(err))
+        }
+   }
   }
 </script>

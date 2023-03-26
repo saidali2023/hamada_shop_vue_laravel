@@ -3,21 +3,103 @@
     <!-- <li class="nav-item register-btn reg-login-btn" data-toggle="modal" data-target="#signin-modal">
 <a class="btn btn-info nav-link" href="" data-toggle="modal" data-target="#register-modal">Register</a>
 </li> -->
-    <div class="page-header text-center" style="background-image: url('front/assets/images/page-header-bg.jpg')">
-        		<div class="container">
-        			<h1 class="page-title">Boxed No Sidebar<span>Shop</span></h1>
-        		</div><!-- End .container -->
-        	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item"><a href="#">No Sidebar</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Boxed</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+<div class="container">
+          <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+
+          <div class="cat-blocks-container">
+              <div class="row">
+                  <div class="col-6 col-sm-4 col-lg-2" v-for="categotry in categotries.data" :key="categotry.id">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img :src="categotry.icon" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">{{categotry.title}}</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+
+                  <div class="col-6 col-sm-4 col-lg-2">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img src="front/assets/images/demos/demo-4/cats/2.png" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">Digital Cameras</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+
+                  <div class="col-6 col-sm-4 col-lg-2">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img src="front/assets/images/demos/demo-4/cats/3.png" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">Smart Phones</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+
+                  <div class="col-6 col-sm-4 col-lg-2">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img src="front/assets/images/demos/demo-4/cats/4.png" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">Televisions</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+
+                  <div class="col-6 col-sm-4 col-lg-2">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img src="front/assets/images/demos/demo-4/cats/5.png" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">Audio</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+
+                  <div class="col-6 col-sm-4 col-lg-2">
+                      <a href="category.html" class="cat-block">
+                          <figure>
+                              <span>
+                                  <img src="front/assets/images/demos/demo-4/cats/6.png" alt="Category image">
+                              </span>
+                          </figure>
+
+                          <h3 class="cat-block-title">Smart Watches</h3><!-- End .cat-block-title -->
+                      </a>
+                  </div><!-- End .col-sm-4 col-lg-2 -->
+              </div><!-- End .row -->
+          </div><!-- End .cat-blocks-container -->
+      </div><!-- End .container -->
+
+      <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4" v-for="banner in banners.data" :key="banner.id">
+                        <div class="banner banner-overlay banner-overlay-light">
+                            <a href="#">
+                                <img :src="banner.banner" alt="Banner">
+                            </a>
+
+                            <div class="banner-content">
+                                <h4 class="banner-subtitle"><a href="#">Time Deals</a></h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title"><a href="#"><strong>Bose SoundSport</strong> <br>Time Deal -30%</a></h3><!-- End .banner-title -->
+                                <a href="#" class="banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-md-4 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
 
             <div class="page-content">
                 <div class="container">
@@ -837,22 +919,42 @@
       data(){
         return{
             posts:{},
+            categotries:{},
+            banners:{},
             searchpost:'',
             issearching : false
         }
       },
       created() {
-          this.getPosts();
+          this.getProducts();
+          this.getCategotries();
+          this.getBanners();
           console.log(this.$store.state.userToken);
-          console.log('Component mountedddd.');
-          console.log(this.posts);
+          // console.log('Component mountedddd.');
+          // console.log(this.posts);
        },
       methods: {
-          getPosts(page){
+          getProducts(page){
               axios.get('https://elnamat.com/poems/eshop/api/buyers/products')
               .then(res => {
                   this.posts = res.data;
                   localStorage.setItem('posts',JSON.stringify(this.posts));
+              })
+              .then(err => console.log(err))
+          },
+          getCategotries(){
+              axios.get('https://elnamat.com/poems/eshop/api/buyers/categotries')
+              .then(res => {
+                  this.categotries = res.data;
+                  localStorage.setItem('categotries',JSON.stringify(this.categotries));
+              })
+              .then(err => console.log(err))
+          },
+          getBanners(){
+              axios.get('https://elnamat.com/poems/eshop/api/buyers/banners')
+              .then(res => {
+                  this.banners = res.data;
+                  localStorage.setItem('banners',JSON.stringify(this.banners));
               })
               .then(err => console.log(err))
           }
