@@ -545,7 +545,6 @@ export default {
        //           duration : 5000
        //           });
          // toastr.success('you are logged in');
-
        let {productId,quantity} = this;
        const headers = {
            'Content-Type': 'application/json',

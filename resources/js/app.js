@@ -22,11 +22,12 @@ Vue.component('register', require('./components/Register.vue').default);
 Vue.component('login', require('./components/Login.vue').default);
 Vue.component('myfooter', require('./components/MyFooter.vue').default);
 Vue.component('home-page', require('./components/HomePage.vue').default);
+Vue.component('categotries', require('./components/Categotries.vue').default);
 
 Vue.component('wishlist', require('./components/WishList.vue').default);
 Vue.component('myaccount', require('./components/MyAccount.vue').default);
 Vue.component('checkout', require('./components/CheckOut.vue').default);
-Vue.component('cart', require('./components/Cart.vue').default);
+Vue.component('carts', require('./components/Carts.vue').default);
 
 
 
