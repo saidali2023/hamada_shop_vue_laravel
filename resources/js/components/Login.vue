@@ -22,44 +22,20 @@
                              <div class="tab-content" id="tab-content-5">
 
                                  <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                   <div class="login-form">
 
                                      <form  method="post" >
-                                         <h2 class="text-center">Log in</h2>
-                                         <div class="form-group">
-                                             <input type="email" class="form-control" placeholder="email" v-model="email">
-
-                                         </div>
-                                         <div class="form-group">
-                                             <input type="password" class="form-control" placeholder="Password" v-model="password">
-
-                                         </div>
-                                         <div class="form-group">
-                                             <button type="submit"
-                                             class="btn btn-primary btn-block"
-
-                                             @click.prevent="submitLogin"
-                                             >Log in</button>
-                                         </div>
-                                         <div class="clearfix">
-                                             <a href="#" class="pull-right">Forgot Password?</a>
-                                         </div>
-                                     </form>
-                                     <p class="text-center"><a class="switch-toregister-modal" href="#">Create an Account</a></p>
-                                   </div>
-                                     <form action="#">
                                          <div class="form-group">
                                              <label for="singin-email">Username or email address *</label>
-                                             <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                             <input type="email" v-model="email" class="form-control" id="singin-email" name="singin-email" required>
                                          </div><!-- End .form-group -->
 
                                          <div class="form-group">
                                              <label for="singin-password">Password *</label>
-                                             <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                             <input type="password" v-model="password" class="form-control" id="singin-password" name="singin-password" required>
                                          </div><!-- End .form-group -->
 
                                          <div class="form-footer">
-                                             <button type="submit" class="btn btn-outline-primary-2">
+                                             <button type="submit" @click.prevent="submitLogin" class="btn btn-outline-primary-2">
                                                  <span>LOG IN</span>
                                                  <i class="icon-long-arrow-right"></i>
                                              </button>

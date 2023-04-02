@@ -29,38 +29,8 @@
 						</thead>
 
 						<tbody>
+
 							<tr  v-for="post in wishlists.data" :key="post.id">
-								<td class="product-col">
-									<div class="product">
-										<figure class="product-media">
-											<a href="#">
-												<img src="front/assets/images/products/table/product-1.jpg" alt="Product image">
-											</a>
-										</figure>
-
-										<h3 class="product-title">
-											<a href="#">{{post.name}}</a>
-										</h3><!-- End .product-title -->
-									</div><!-- End .product -->
-								</td>
-								<td class="price-col">$84.00</td>
-								<td class="stock-col"><span class="in-stock">In stock</span></td>
-								<td class="action-col">
-                                    <div class="dropdown">
-									<button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="icon-list-alt"></i>Select Options
-                                    </button>
-
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">First option</a>
-                                        <a class="dropdown-item" href="#">Another option</a>
-                                        <a class="dropdown-item" href="#">The best option</a>
-                                      </div>
-                                    </div>
-								</td>
-								<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-							</tr>
-							<tr>
 								<td class="product-col">
 									<div class="product">
 										<figure class="product-media">
@@ -70,38 +40,18 @@
 										</figure>
 
 										<h3 class="product-title">
-											<a href="#">Blue utility pinafore denim dress</a>
+											<a href="#"> {{post.name}}</a>
 										</h3><!-- End .product-title -->
 									</div><!-- End .product -->
 								</td>
 								<td class="price-col">$76.00</td>
 								<td class="stock-col"><span class="in-stock">In stock</span></td>
 								<td class="action-col">
-									<button class="btn btn-block btn-outline-primary-2"><i class="icon-cart-plus"></i>Add to Cart</button>
+									<button class="btn btn-block btn-outline-primary-2" @click="addToCart(post.id,1)"><i class="icon-cart-plus"></i>Add to Cart</button>
 								</td>
-								<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+								<td class="remove-col"><button class="btn-remove" @click="removeFromWishlists(post.id)"><i class="icon-close"></i></button></td>
 							</tr>
-							<tr>
-								<td class="product-col">
-									<div class="product">
-										<figure class="product-media">
-											<a href="#">
-												<img src="front/assets/images/products/table/product-3.jpg" alt="Product image">
-											</a>
-										</figure>
 
-										<h3 class="product-title">
-											<a href="#">Orange saddle lock front chain cross body bag</a>
-										</h3><!-- End .product-title -->
-									</div><!-- End .product -->
-								</td>
-								<td class="price-col">$52.00</td>
-								<td class="stock-col"><span class="out-of-stock">Out of stock</span></td>
-								<td class="action-col">
-									<button class="btn btn-block btn-outline-primary-2 disabled">Out of Stock</button>
-								</td>
-								<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-							</tr>
 						</tbody>
 					</table><!-- End .table table-wishlist -->
 	            	<div class="wishlist-share">
@@ -123,6 +73,7 @@
     data(){
       return{
           wishlists:{},
+          quantity:'1',
       }
     },
     created() {
@@ -148,6 +99,31 @@
                   // localStorage.setItem('posts',JSON.stringify(this.carts));
               })
               .then(err => console.log(err))
+          },
+          addToCart(productId,quantity){
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+this.$store.state.userToken
+            };
+            axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
+               {productId,quantity},headers
+             ).then(res => {
+               console.log(res);
+               this.$toaster.success('Your toaster success message.');
+            })
+          },
+          removeFromWishlists(productId){
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+this.$store.state.userToken
+            };
+            axios.post('https://elnamat.com/poems/eshop/api/buyers/addto/wishlists',
+               {productId},headers
+             ).then(res => {
+               console.log(res);
+               this.$toaster.success(res.data.msg);
+
+            })
           }
      }
   }

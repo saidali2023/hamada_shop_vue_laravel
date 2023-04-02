@@ -431,7 +431,13 @@
        },
       methods: {
           getProducts(){
-              axios.get('https://elnamat.com/poems/eshop/api/buyers/products?categoryId='+this.$route.params.id)
+            let apiName= this.$route.params.id  ? 'https://elnamat.com/poems/eshop/api/buyers/products?categoryId='+this.$route.params.id : 'https://elnamat.com/poems/eshop/api/buyers/products';
+            // if(this.$route.params.id !=null){
+            //   let api_name='https://elnamat.com/poems/eshop/api/buyers/products?categoryId='+this.$route.params.id;
+            // }else{
+              // let api_name='https://elnamat.com/poems/eshop/api/buyers/products';
+            // }
+              axios.get(apiName)
               .then(res => {
                   this.products = res.data;
                   localStorage.setItem('posts',JSON.stringify(this.products));

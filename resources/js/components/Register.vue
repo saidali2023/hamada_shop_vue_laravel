@@ -19,7 +19,7 @@
                               </li>
                           </ul>
                           <div class="tab-content" id="tab-content-5">
-                              <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                              <div class="tab-pane fade" id="signin" role="tabpanel" aria-labelledby="signin-tab">
                                   <form action="#">
                                       <div class="form-group">
                                           <label for="singin-email">Username or email address *</label>
@@ -63,20 +63,33 @@
                                       </div><!-- End .row -->
                                   </div><!-- End .form-choice -->
                               </div><!-- .End .tab-pane -->
-                              <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                  <form action="#">
+                              <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                  <form action="#" method="post" nonvalidate>
+                                      <div class="form-group">
+                                          <label for="register-name">Your name *</label>
+                                          <input type="text" v-model="name" class="form-control" id="register-name" name="register-name" required>
+                                          <div v-show="nameError" class="text-danger">
+                                             ... the name is too short
+                                          </div>
+                                      </div><!-- End .form-group -->
                                       <div class="form-group">
                                           <label for="register-email">Your email address *</label>
-                                          <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                          <input type="email" v-model="email" class="form-control" id="register-email" name="register-email" required>
+                                          <div v-show="emailError" class="text-danger">
+                                             ... the email is not valid
+                                          </div>
                                       </div><!-- End .form-group -->
 
                                       <div class="form-group">
                                           <label for="register-password">Password *</label>
                                           <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                          <div v-show="passwordError" class="text-danger">
+                                             ... the password is too short
+                                          </div>
                                       </div><!-- End .form-group -->
 
                                       <div class="form-footer">
-                                          <button type="submit" class="btn btn-outline-primary-2">
+                                          <button type="submit" @click.prevent="submitRegister" class="btn btn-outline-primary-2">
                                               <span>SIGN UP</span>
                                               <i class="icon-long-arrow-right"></i>
                                           </button>
@@ -127,10 +140,7 @@ export default {
      computed:{
          nameError(){
              return this.name.length > 0 && this.name.length < 4
-         },/*
-         lastnameError(){
-             return this.lastname.length > 0 && this.lastname.length < 4
-         }, */
+         },
          emailError(){
            return !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) && this.email.length > 0
          },
@@ -152,7 +162,23 @@ export default {
    		getCategories(){
          console.log(this.$store.state.userToken);
 
-   		}
+   		},
+      submitRegister(){
+           //console.log('submitted');
+           //client sid  localstorage sessionstorage indexed db   state managment system
+           //vue vuex
+
+           //this.$store.state.userToken = "amine"
+
+           //this.$store.commit('setUserToken',{userToken:'sdmfjsdkfjlsds'})
+            // console.log(this.$store.getters.isLogged)
+            // console.log(this.$store.state.userToken);
+            let  {name,email,password} = this;
+            this.$store.dispatch('RegisterUser',{name,email,password})
+
+
+
+       }
    	}
 }
 </script>

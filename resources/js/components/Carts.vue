@@ -48,36 +48,16 @@
 											</td>
 											<td class="price-col">$84.00</td>
 											<td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
+                          <div class="cart-product-quantity">
+                              <input type="number" @input="checkExist($event,post.id)"  class="form-control" :value="post.counter"  min="1" max="10" step="1" data-decimals="0" required>
+                          </div><!-- End .cart-product-quantity -->
+                      </td>
 											<td class="total-col">$84.00</td>
-											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+											<td class="remove-col">
+                          <button @click="removeFromCart(post.id)" class="btn-remove"><i class="icon-close"></i></button>
+                      </td>
 										</tr>
-										<tr>
-											<td class="product-col">
-												<div class="product">
-													<figure class="product-media">
-														<a href="#">
-															<img src="front/assets/images/products/table/product-2.jpg" alt="Product image">
-														</a>
-													</figure>
 
-													<h3 class="product-title">
-														<a href="#">Blue utility pinafore denim dress</a>
-													</h3><!-- End .product-title -->
-												</div><!-- End .product -->
-											</td>
-											<td class="price-col">$76.00</td>
-											<td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
-											<td class="total-col">$76.00</td>
-											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-										</tr>
 									</tbody>
 								</table><!-- End .table table-wishlist -->
 
@@ -178,22 +158,48 @@
         console.log(this.carts);
      },
     methods: {
+        checkExist(event,productId){
+           // console.log(event.target.value);
+           let quantity=event.target.value;
+           // console.log(productId);
+           const headers = {
+               'Content-Type': 'application/json',
+               'Authorization': 'Bearer '+this.$store.state.userToken
+           };
+           axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
+              {productId,quantity},headers
+            ).then(res => {
+              console.log(res);
+              this.$toaster.success('Your toaster success message.');
+           })
+        },
+
         getPosts(){
           const headers = {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5NzYwMTQ2LCJleHAiOjE2Nzk3NjM3NDYsIm5iZiI6MTY3OTc2MDE0NiwianRpIjoiVlJyWkJvMTZtWUlrMWs2TCIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.-Y1OCaD5Zw7ussAv7hK132PgrGB7t6vLgpUlytT41Dw',
+              'Authorization': 'Bearer '+this.$store.state.userToken
           };
             axios.get('https://elnamat.com/poems/eshop/api/buyers/product/carts',headers)
             .then(res => {
               console.log('Component mountvvvv.');
-
               console.log(res.data.data);
-
                 this.carts = res.data;
-
                 // localStorage.setItem('posts',JSON.stringify(this.carts));
             })
             .then(err => console.log(err))
+        },
+        removeFromCart(productId){
+          const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+this.$store.state.userToken
+          };
+          axios.post('https://elnamat.com/poems/eshop/api/buyers/product/remove-from-cart',
+             {productId},headers
+           ).then(res => {
+             console.log(res);
+             this.$toaster.success(res.data.msg);
+
+          })
         }
    }
   }

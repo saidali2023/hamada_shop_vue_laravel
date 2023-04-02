@@ -28,7 +28,7 @@ const routes = [
     { path: '/myaccount', component: MyAccount, name: 'MyAccount' },
     { path: '/checkout', component: CheckOut, name: 'CheckOut' },
     { path: '/carts', component: Carts, name: 'Carts' },
-    // { path: '/shops', component: Shops, name: 'Shops' },
+    { path: '/shops', component: Shops, name: 'Shops' },
     { path: '/about', component: About, name: 'About' },
     { path: '/examplecomponent', component: ExampleComponent, name: 'ExampleComponent' },
 ];

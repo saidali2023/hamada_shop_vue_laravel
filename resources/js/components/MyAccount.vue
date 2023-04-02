@@ -34,6 +34,9 @@
                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
                    </li>
                    <li class="nav-item">
+                       <a class="nav-link" id="tab-add-address-link" data-toggle="tab" href="#tab-add-address" role="tab" aria-controls="tab-add-address" aria-selected="false">Add Address</a>
+                   </li>
+                   <li class="nav-item">
                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
                    </li>
                    <li class="nav-item">
@@ -92,7 +95,47 @@
                        </div><!-- End .col-lg-6 -->
                      </div><!-- End .row -->
                    </div><!-- .End .tab-pane -->
+                   <div class="tab-pane fade" id="tab-add-address" role="tabpanel" aria-labelledby="tab-add-address-link">
+                     <form action="#">
+                       <div class="row">
+                         <div class="col-sm-4">
+                           <label>Full Name *</label>
+                           <input type="text" class="form-control" required>
+                         </div><!-- End .col-sm-6 -->
+                         <div class="col-sm-4">
+                           <label>Email address *</label>
+                           <input type="email" class="form-control" required>
+                         </div><!-- End .col-sm-6 -->
 
+                         <div class="col-sm-4">
+                           <label>Phone *</label>
+                           <input type="text" class="form-control" required>
+                         </div><!-- End .col-sm-6 -->
+                       </div><!-- End .row -->
+                       <div class="row">
+                           <div class="col-sm-4">
+                               <label>Country *</label>
+                               <input type="text" class="form-control" required>
+                           </div><!-- End .col-sm-6 -->
+                          <div class="col-sm-4">
+                               <label>City *</label>
+                               <input type="text" class="form-control" required>
+                          </div><!-- End .col-sm-6 -->
+                          <div class="col-sm-4">
+                               <label>State *</label>
+                               <input type="text" class="form-control" required>
+                          </div><!-- End .col-sm-6 -->
+                      </div><!-- End .row -->
+
+                      <label>Full Address *</label>
+                      <input type="text" class="form-control" required>
+                      <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
+                             <button type="submit" class="btn btn-outline-primary-2">
+                               <span>SAVE CHANGES</span>
+                             <i class="icon-long-arrow-right"></i>
+                             </button>
+                           </form>
+                   </div><!-- .End .tab-pane -->
                    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
                      <form action="#">
                              <div class="row">
@@ -154,16 +197,13 @@
         getPosts(){
           const headers = {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5ODAzNjY3LCJleHAiOjE2Nzk4MDcyNjcsIm5iZiI6MTY3OTgwMzY2NywianRpIjoiR0N4MW91dWxUVTdNV29zTSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.LBcgJczMFPX6db2LAPuaDKM09HlCYuj8QbI7XziFttk',
+              'Authorization': 'Bearer '+this.$store.state.userToken
           };
             axios.get('https://elnamat.com/poems/eshop/api/buyers/buyer-data',headers)
             .then(res => {
               console.log('Component mooooooo.');
-
               console.log(res.data.data);
-
                 this.userData = res.data.data;
-
                 // localStorage.setItem('posts',JSON.stringify(this.carts));
             })
             .then(err => console.log(err))

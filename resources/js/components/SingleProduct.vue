@@ -129,7 +129,7 @@
                                     <a href="#" class="btn-product btn-cart" @click="addToCart()"><span>add to cart</span></a>
                                     <Example></Example>
                                     <div class="details-action-wrapper">
-                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                        <a href="#" class="btn-product btn-wishlist" @click="removeFromWishlists()" title="Wishlist"><span>Add to Wishlist</span></a>
                                         <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
                                     </div><!-- End .details-action-wrapper -->
                                 </div><!-- End .product-details-action -->
@@ -509,7 +509,7 @@ export default {
    data(){
      return {
        post:'',
-       productId:'25',
+       productId:this.$route.params.id,
        quantity:'1',
      }
    },
@@ -548,7 +548,7 @@ export default {
        let {productId,quantity} = this;
        const headers = {
            'Content-Type': 'application/json',
-           'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5Mzg1NTY3LCJleHAiOjE2NzkzODkxNjcsIm5iZiI6MTY3OTM4NTU2NywianRpIjoiM2dsdGJQSXh3V2FtYWk2aiIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.-ixFPNzF0dLlQvbtLdllr0FM6BHIzzNWkJTadOQCIkk',
+           'Authorization': 'Bearer '+this.$store.state.userToken
        };
        axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
           {productId,quantity},headers
@@ -561,6 +561,20 @@ export default {
               title: 'Your work has been saved',
               timer: 2500
             });
+       })
+     },
+     removeFromWishlists(){
+       const headers = {
+           'Content-Type': 'application/json',
+           'Authorization': 'Bearer '+this.$store.state.userToken
+       };
+       let {productId} = this;
+       axios.post('https://elnamat.com/poems/eshop/api/buyers/addto/wishlists',
+          {productId},headers
+        ).then(res => {
+          console.log(res);
+          this.$toaster.success(res.data.msg);
+
        })
      }
    }

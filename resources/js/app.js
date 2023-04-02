@@ -22,6 +22,7 @@ Vue.component('register', require('./components/Register.vue').default);
 Vue.component('login', require('./components/Login.vue').default);
 Vue.component('myfooter', require('./components/MyFooter.vue').default);
 Vue.component('home-page', require('./components/HomePage.vue').default);
+Vue.component('header-top', require('./components/Header.vue').default);
 Vue.component('categotries', require('./components/Categotries.vue').default);
 
 Vue.component('wishlist', require('./components/WishList.vue').default);
@@ -88,8 +89,9 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        
         RegisterUser({ commit }, payload) {
-            axios.post('/api/register', payload)
+            axios.post('https://elnamat.com/poems/eshop/api/buyers/register', payload)
                 .then(res => {
                     console.log(res)
                     commit('setUserToken', res.data.token)
