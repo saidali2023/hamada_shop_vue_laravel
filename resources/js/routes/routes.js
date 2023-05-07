@@ -17,6 +17,11 @@ import MyAccount from '../components/MyAccount.vue'
 import CheckOut from '../components/CheckOut.vue'
 import Carts from '../components/Carts.vue'
 import About from '../components/About.vue'
+import Offer from '../components/Offer.vue'
+import MyOrder from '../components/MyOrder.vue'
+import OrderDetails from '../components/OrderDetails.vue'
+import Quiz from '../components/quiz.vue'
+import Timer from '../components/Timer.vue'
 
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
@@ -30,7 +35,14 @@ const routes = [
     { path: '/carts', component: Carts, name: 'Carts' },
     { path: '/shops', component: Shops, name: 'Shops' },
     { path: '/about', component: About, name: 'About' },
+    { path: '/offer', component: Offer, name: 'Offer' },
+    { path: '/myorders', component: MyOrder, name: 'MyOrder' },
+    { path: '/order/:id', component: OrderDetails, name: 'OrderDetails' },
     { path: '/examplecomponent', component: ExampleComponent, name: 'ExampleComponent' },
+    { path: '/quiz', component: Quiz, name: 'Quiz' },
+    { path: '/timer', component: Timer, name: 'Timer' },
+
+
 ];
 
 const router = new VueRouter({

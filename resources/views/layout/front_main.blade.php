@@ -6,14 +6,17 @@
      <body>
          <div id="app">
              <div class="page-wrapper">
-               @include('layout.front_header')
-               <main class="main">
+               @if(!Request::is(['quiz','timer']))
+                  @include('layout.front_header')
+               @endif
+                <main class="main">
                  @yield('content')
-                 </main><!-- End .main -->
-                 @include('layout.front_footer_two')
+                </main><!-- End .main -->
+                @if(!Request::is(['quiz','timer']))
+                  @include('layout.front_footer_two')
+                @endif
               </div><!-- End .page-wrapper -->
-
-              @include('layout.front_footer')
+                @include('layout.front_footer')
         </div>
 
               <script src="{{asset('front/assets/js/jquery.min.js')}}"></script>

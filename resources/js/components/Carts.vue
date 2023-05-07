@@ -49,7 +49,7 @@
 											<td class="price-col">$84.00</td>
 											<td class="quantity-col">
                           <div class="cart-product-quantity">
-                              <input type="number" @input="checkExist($event,post.id)"  class="form-control" :value="post.counter"  min="1" max="10" step="1" data-decimals="0" required>
+                              <input type="number" @input="addToCart($event,post.id)"  class="form-control" :value="post.counter"  min="1" max="10" step="1" data-decimals="0" required>
                           </div><!-- End .cart-product-quantity -->
                       </td>
 											<td class="total-col">$84.00</td>
@@ -93,10 +93,10 @@
 
 	                						<tr class="summary-shipping-row">
 	                							<td>
-													<div class="custom-control custom-radio">
-														<input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-														<label class="custom-control-label" for="free-shipping">Free Shipping</label>
-													</div><!-- End .custom-control -->
+        													<div class="custom-control custom-radio">
+        														<input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+        														<label class="custom-control-label" for="free-shipping">Free Shipping</label>
+        													</div><!-- End .custom-control -->
 	                							</td>
 	                							<td>$0.00</td>
 	                						</tr><!-- End .summary-shipping-row -->
@@ -104,9 +104,9 @@
 	                						<tr class="summary-shipping-row">
 	                							<td>
 	                								<div class="custom-control custom-radio">
-														<input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-														<label class="custom-control-label" for="standart-shipping">Standart:</label>
-													</div><!-- End .custom-control -->
+        														<input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+        														<label class="custom-control-label" for="standart-shipping">Standart:</label>
+        													</div><!-- End .custom-control -->
 	                							</td>
 	                							<td>$10.00</td>
 	                						</tr><!-- End .summary-shipping-row -->
@@ -158,22 +158,6 @@
         console.log(this.carts);
      },
     methods: {
-        checkExist(event,productId){
-           // console.log(event.target.value);
-           let quantity=event.target.value;
-           // console.log(productId);
-           const headers = {
-               'Content-Type': 'application/json',
-               'Authorization': 'Bearer '+this.$store.state.userToken
-           };
-           axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
-              {productId,quantity},headers
-            ).then(res => {
-              console.log(res);
-              this.$toaster.success('Your toaster success message.');
-           })
-        },
-
         getPosts(){
           const headers = {
               'Content-Type': 'application/json',
@@ -188,18 +172,12 @@
             })
             .then(err => console.log(err))
         },
+        addToCart(event,productId){
+          let quantity=event.target.value;
+          this.$store.dispatch('addToCart',{productId,quantity})
+        },
         removeFromCart(productId){
-          const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer '+this.$store.state.userToken
-          };
-          axios.post('https://elnamat.com/poems/eshop/api/buyers/product/remove-from-cart',
-             {productId},headers
-           ).then(res => {
-             console.log(res);
-             this.$toaster.success(res.data.msg);
-
-          })
+          this.$store.dispatch('removeFromCart',{productId})
         }
    }
   }

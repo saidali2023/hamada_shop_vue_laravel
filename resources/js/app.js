@@ -48,7 +48,10 @@ const store = new Vuex.Store({
         userToken:null,
         productId:null,
         user: null,
-        EditedPost: {}
+        EditedPost: {},
+        searchProducts: {},
+        // OrderDetails: {},
+        OrderDetails: '2'
     },
     getters: { //center
         isLogged(state) {
@@ -63,7 +66,14 @@ const store = new Vuex.Store({
         },
         PostToEdit(state) {
             return state.EditedPost
-        }
+        },
+        getSearchProducts(state) {
+            return state.searchProducts
+        },
+        getOrderDetails(state) {
+            return state.OrderDetails
+        },
+
     },
     mutations: {
         setUserToken(state, userToken) {
@@ -84,12 +94,61 @@ const store = new Vuex.Store({
             localStorage.removeItem('userToken');
             window.location.pathname = "/"
         },
-        EditPost(state, post) {
+        EditPost(state, post){
             state.EditedPost = post;
+        },
+        saveSearchProducts(state, products) {
+            state.searchProducts = products;
+        },
+        saveOrderDetails(state, datails) {
+            state.OrderDetails = datails;
         }
     },
     actions: {
-        
+        addToCart({ state },payload){
+          const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+state.userToken
+          };
+          axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
+             payload,headers
+           ).then(res => {
+             console.log(res);
+             this.$toaster.success('Your toaster success message.');
+             swal({
+                 text: "User signup successful, please login",
+                 icon: "success",
+                 title: 'Your work has been saved',
+                 timer: 2500
+               });
+          })
+        },
+        removeFromCart({ state },payload){
+          const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+state.userToken
+          };
+          axios.post('https://elnamat.com/poems/eshop/api/buyers/product/remove-from-cart',
+             payload,headers
+           ).then(res => {
+             console.log(res);
+             this.$toaster.success(res.data.msg);
+
+          })
+        },
+        removeFromWishlists({ state },payload){
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+state.userToken
+            };
+            axios.post('https://elnamat.com/poems/eshop/api/buyers/addto/wishlists',
+               payload,headers
+             ).then(res => {
+               console.log(res);
+               this.$toaster.success(res.data.msg);
+
+            })
+        },
         RegisterUser({ commit }, payload) {
             axios.post('https://elnamat.com/poems/eshop/api/buyers/register', payload)
                 .then(res => {
@@ -113,8 +172,8 @@ const store = new Vuex.Store({
 
 
 
-        }
-
+        },
+    
 
     }
 

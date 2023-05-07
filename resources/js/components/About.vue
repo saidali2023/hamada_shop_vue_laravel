@@ -361,13 +361,14 @@ export default {
      getPost(){
       axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
       .then(res =>{
-        console.log(res)
+        // console.log(res)
         this.about = res.data.data;
       })
       .catch(err =>{
         console.log(err)
       })
      },
+     
 
    }
 }

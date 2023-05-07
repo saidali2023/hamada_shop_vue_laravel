@@ -129,7 +129,7 @@
                                     <a href="#" class="btn-product btn-cart" @click="addToCart()"><span>add to cart</span></a>
                                     <Example></Example>
                                     <div class="details-action-wrapper">
-                                        <a href="#" class="btn-product btn-wishlist" @click="removeFromWishlists()" title="Wishlist"><span>Add to Wishlist</span></a>
+                                        <a href="#" class="btn-product btn-wishlist" @click="removeOrAddWishlists()" title="Wishlist"><span>Add to Wishlist</span></a>
                                         <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
                                     </div><!-- End .details-action-wrapper -->
                                 </div><!-- End .product-details-action -->
@@ -539,43 +539,12 @@ export default {
       })
      },
      addToCart(){
-       // this.$toasted.show("Reservation is ok!", {
-       //           theme: "bubble",
-       //           position: "top-right",
-       //           duration : 5000
-       //           });
-         // toastr.success('you are logged in');
        let {productId,quantity} = this;
-       const headers = {
-           'Content-Type': 'application/json',
-           'Authorization': 'Bearer '+this.$store.state.userToken
-       };
-       axios.post('https://elnamat.com/poems/eshop/api/buyers/addtocart',
-          {productId,quantity},headers
-        ).then(res => {
-          console.log(res);
-          this.$toaster.success('Your toaster success message.');
-          swal({
-              text: "User signup successful, please login",
-              icon: "success",
-              title: 'Your work has been saved',
-              timer: 2500
-            });
-       })
+       this.$store.dispatch('addToCart',{productId,quantity})
      },
-     removeFromWishlists(){
-       const headers = {
-           'Content-Type': 'application/json',
-           'Authorization': 'Bearer '+this.$store.state.userToken
-       };
+     removeOrAddWishlists(){
        let {productId} = this;
-       axios.post('https://elnamat.com/poems/eshop/api/buyers/addto/wishlists',
-          {productId},headers
-        ).then(res => {
-          console.log(res);
-          this.$toaster.success(res.data.msg);
-
-       })
+       this.$store.dispatch('removeFromWishlists',{productId})
      }
    }
 }

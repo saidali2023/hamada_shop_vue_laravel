@@ -94,13 +94,13 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                    <a href="#" @click="removeOrAddWishlists(product.id)" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                                     <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                                     <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                    <a href="#" @click="addToCart(product.id,1)" class="btn-product btn-cart"><span>add to cart</span></a>
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
 
@@ -443,6 +443,13 @@
                   localStorage.setItem('posts',JSON.stringify(this.products));
               })
               .then(err => console.log(err))
+          },
+          addToCart(productId,quantity){
+            // let {productId,quantity} = this;
+            this.$store.dispatch('addToCart',{productId,quantity})
+          },
+          removeOrAddWishlists(productId){
+            this.$store.dispatch('removeFromWishlists',{productId})
           }
      }
     }

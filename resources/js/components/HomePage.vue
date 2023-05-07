@@ -5,6 +5,62 @@
 </li> -->
 <div class="container">
           <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+          <!-- //////////////////////////// -->
+          <div class="products">
+              <div class="row">
+                  <div class="col-6 col-md-4 col-lg-4 col-xl-3" v-for="product in getSearchProducts.data" :key="product.id">
+                      <div class="product">
+                          <figure class="product-media">
+                              <span class="product-label label-new">New</span>
+                              <a href="product.html">
+                                  <img :src="product.cover_img" alt="Product image" class="product-image">
+                              </a>
+
+                              <div class="product-action-vertical">
+                                  <a href="#" @click="removeOrAddWishlists(product.id)" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                              </div><!-- End .product-action -->
+
+                              <div class="product-action action-icon-top">
+                                  <a href="#" @click="addToCart(product.id,1)" class="btn-product btn-cart"><span>add to cart</span></a>
+                                  <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                  <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
+                              </div><!-- End .product-action -->
+                          </figure><!-- End .product-media -->
+
+                          <div class="product-body">
+                              <div class="product-cat">
+                                  <a href="#">Women</a>
+                              </div><!-- End .product-cat -->
+                              <h3 class="product-title"><a href="product.html">
+
+                                <router-link :to="'/product/'+product.slug['en']+'/'+product.id">{{product.name}}</router-link>
+                              </a></h3><!-- End .product-title -->
+                              <div class="product-price">
+                                  $50.00
+                              </div><!-- End .product-price -->
+                              <div class="ratings-container">
+                                  <div class="ratings">
+                                      <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
+                                  </div><!-- End .ratings -->
+                                  <span class="ratings-text">( 0 Reviews )</span>
+                              </div><!-- End .rating-container -->
+
+                              <div class="product-nav product-nav-dots">
+                                  <a href="#" style="background: #cc9966;"><span class="sr-only">Color name</span></a>
+                                  <a href="#" class="active" style="background: #ebebeb;"><span class="sr-only">Color name</span></a>
+                              </div><!-- End .product-nav -->
+                          </div><!-- End .product-body -->
+                      </div><!-- End .product -->
+                  </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+
+              </div><!-- End .row -->
+
+              <div class="load-more-container text-center">
+                  <a href="#" class="btn btn-outline-darker btn-load-more">More Products <i class="icon-refresh"></i></a>
+              </div><!-- End .load-more-container -->
+          </div><!-- End .products -->
+          <!-- ////////////////// -->
+
 
           <div class="cat-blocks-container">
               <div class="row">
@@ -130,20 +186,20 @@
 
                     <div class="products">
                         <div class="row">
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3" v-for="post in posts.data" :key="post.id">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-3" v-for="product in posts.data" :key="product.id">
                                 <div class="product">
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img :src="post.cover_img" alt="Product image" class="product-image">
+                                            <img :src="product.cover_img" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                            <a href="#" @click="removeOrAddWishlists(product.id)" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                         </div><!-- End .product-action -->
 
                                         <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            <a href="#" @click="addToCart(product.id,1)" class="btn-product btn-cart"><span>add to cart</span></a>
                                             <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
                                             <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
                                         </div><!-- End .product-action -->
@@ -155,7 +211,7 @@
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="product.html">
 
-                                          <router-link :to="'/product/'+post.slug['en']+'/'+post.id">{{post.name}}</router-link>
+                                          <router-link :to="'/product/'+product.slug['en']+'/'+product.id">{{product.name}}</router-link>
                                         </a></h3><!-- End .product-title -->
                                         <div class="product-price">
                                             $50.00
@@ -457,6 +513,11 @@
           // console.log('Component mountedddd.');
           // console.log(this.posts);
        },
+       computed:{
+          getSearchProducts(){
+              return this.$store.getters.getSearchProducts;
+          }
+      },
       methods: {
           getProducts(page){
               axios.get('https://elnamat.com/poems/eshop/api/buyers/products')
@@ -481,6 +542,13 @@
                   localStorage.setItem('banners',JSON.stringify(this.banners));
               })
               .then(err => console.log(err))
+          },
+          addToCart(productId,quantity){
+            // let {productId,quantity} = this;
+            this.$store.dispatch('addToCart',{productId,quantity})
+          },
+          removeOrAddWishlists(productId){
+            this.$store.dispatch('removeFromWishlists',{productId})
           }
      }
     }

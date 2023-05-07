@@ -69,7 +69,7 @@
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search product ..." required>
+                            <input type="search" @input="getProducts($event)" class="form-control" name="q" id="q" placeholder="Search product ..." required>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
@@ -403,7 +403,28 @@
   </div>
 </template>
 <script>
-    export default {
-
-    }
+export default {
+    data(){
+      return{
+          products:{},
+          name:'',
+      }
+    },
+    created() {
+        this.getProducts();
+    },
+    methods: {
+        getProducts(event){
+            let name=event.target.value;
+            axios.get('https://elnamat.com/poems/eshop/api/buyers/products/search?name='+name)
+            .then(res => {
+                console.log(res.data);
+                console.log('bbbbbbb>>>>>>>>>>>>>>>>>');
+                this.products = res.data;
+                this.$store.commit('saveSearchProducts',res.data)
+            })
+            .then(err => console.log(err))
+        }
+   }
+}
 </script>

@@ -1,6 +1,6 @@
 <template>
-   <div>
-     <div class="page-header text-center" style="background-image: url('front/assets/images/page-header-bg.jpg')">
+  <div>
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
         			<h1 class="page-title">Wishlist<span>Shop</span></h1>
         		</div><!-- End .container -->
@@ -29,29 +29,68 @@
 						</thead>
 
 						<tbody>
-
-							<tr  v-for="item in wishlists.data" :key="item.id">
+							<tr v-for="item in orders.data" :key="item.id">
 								<td class="product-col">
 									<div class="product">
 										<figure class="product-media">
 											<a href="#">
-												<img src="front/assets/images/products/table/product-2.jpg" alt="Product image">
+												<img src="assets/images/products/table/product-1.jpg" alt="Product image">
 											</a>
 										</figure>
 
 										<h3 class="product-title">
-											<a href="#"> {{item.name}}</a>
+											<a href="#">{{item.id}}</a>
 										</h3><!-- End .product-title -->
 									</div><!-- End .product -->
 								</td>
-								<td class="price-col">$76.00</td>
+								<td class="price-col">$84.00</td>
+								<td class="stock-col"><span class="in-stock">{{item.status}}</span></td>
+								<td class="action-col">
+                    <div class="dropdown">
+                      <!-- <router-link :to="{name: 'carts'}"> delete All</button></router-link> -->
+                      <!-- <router-link :v-link="{name:'order',params:{name:'jj'}}">order</router-link> -->
+                      <!-- <a  :v-link="{ name: 'order', params: { name: 'jj' }}"> Show new component</a> -->
+									      <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <!-- <i class="icon-list-alt"></i> -->
+                          <!-- <router-link :to="{ name: '/order/'+item.id,params: {id: 74}}">vfdv  </router-link> -->
+                                <!-- Order -->
+                          <!-- <router-link :to="'/order/'+item.id"  >Order Datails</router-link> -->
+                          <!-- <a :to="'/order/'+item.id">scsdcdscsdcsdcd</a> -->
+
+                          <router-link  :to="'/order/'+item.id" title="Wishlist">
+                             <p @click="saveOrderDetails(444)">Wishlist</p>
+                         </router-link>
+                        </button>
+                  </div>
+								</td>
+								<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+							</tr>
+              <tr>
+								<td class="product-col">
+									<div class="product">
+										<figure class="product-media">
+											<a href="#">
+												<img src="assets/images/products/table/product-1.jpg" alt="Product image">
+											</a>
+										</figure>
+
+										<h3 class="product-title">
+											<a href="#">Beige knitted elastic runner shoes</a>
+										</h3><!-- End .product-title -->
+									</div><!-- End .product -->
+								</td>
+								<td class="price-col">$84.00</td>
 								<td class="stock-col"><span class="in-stock">In stock</span></td>
 								<td class="action-col">
-									<button class="btn btn-block btn-outline-primary-2" @click="addToCart(item.id,1)"><i class="icon-cart-plus"></i>Add to Cart</button>
-								</td>
-								<td class="remove-col"><button class="btn-remove" @click="removeOrAddWishlists(item.id)"><i class="icon-close"></i></button></td>
-							</tr>
+                    <div class="dropdown">
+									      <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select Options
+                        </button>
 
+                    </div>
+								</td>
+								<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+							</tr>
 						</tbody>
 					</table><!-- End .table table-wishlist -->
 	            	<div class="wishlist-share">
@@ -66,20 +105,19 @@
 	            	</div><!-- End .wishlist-share -->
             	</div><!-- End .container -->
             </div><!-- End .page-content -->
-   </div>
+  </div>
 </template>
+
 <script>
   export default {
     data(){
       return{
-          wishlists:{},
+          orders:{},
       }
     },
     created() {
         this.getPosts();
-        console.log(this.$store.state.userToken);
-
-        console.log(this.wishlists);
+        console.log(this.orders);
      },
       methods: {
           getPosts(){
@@ -87,27 +125,20 @@
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZWxuYW1hdC5jb21cL3BvZW1zXC9lc2hvcFwvYXBpXC9idXllcnNcL2xvZ2luIiwiaWF0IjoxNjc5NzY3MDAwLCJleHAiOjE2Nzk3NzA2MDAsIm5iZiI6MTY3OTc2NzAwMCwianRpIjoiWE1MdWh0b0paRDhMVVlRNSIsInN1YiI6MTAxLCJwcnYiOiJhMDk0MDIzMzU0YTRkOTIyYTZiYzcxMGNkZmJlMWE3NGZiYTMwNGU2In0.EGRsiv7NKE2F5XE9lBjGOPyaX1oi2_-FV_HK0QDsSKk',
             };
-              axios.get('https://elnamat.com/poems/eshop/api/buyers/product/wishlists',headers)
+              axios.get('https://elnamat.com/poems/eshop/api/buyers/get-buyer-order',headers)
               .then(res => {
                 console.log('Component mountvvvv.');
 
                 console.log(res.data.data);
-
-                  this.wishlists = res.data;
-
+                  this.orders = res.data;
                   // localStorage.setItem('posts',JSON.stringify(this.carts));
               })
               .then(err => console.log(err))
           },
-
-          addToCart(productId,quantity){
-            // let {productId,quantity} = this;
-            this.$store.dispatch('addToCart',{productId,quantity})
-          },
-
-          removeOrAddWishlists(productId){
-            this.$store.dispatch('removeFromWishlists',{productId})
-          }
+          saveOrderDetails(item){
+            // window.location.pathname = "/order/174"
+      			this.$store.commit('saveOrderDetails',item);
+      		},
      }
   }
 </script>

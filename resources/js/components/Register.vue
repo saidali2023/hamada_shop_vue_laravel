@@ -175,9 +175,6 @@ export default {
             // console.log(this.$store.state.userToken);
             let  {name,email,password} = this;
             this.$store.dispatch('RegisterUser',{name,email,password})
-
-
-
        }
    	}
 }
