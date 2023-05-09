@@ -1915,17 +1915,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.getPost();
+    this.getContactinfo();
   },
   methods: {
-    getPost: function getPost() {
-      var _this = this;
-      axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo').then(function (res) {
-        // console.log(res)
-        _this.about = res.data.data;
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    getContactinfo: function getContactinfo() {
+      //   axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
+      //  .then(res =>{
+      //    this.about = res.data.data;
+      //  })
+      //  .catch(err =>{
+      //    console.log(err)
+      //  })
+      this.about = this.$store.dispatch('getContactinfo');
     }
   }
 });
@@ -2197,11 +2198,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: {},
-      name: ''
+      name: '',
+      about: ''
     };
   },
   created: function created() {
     this.getProducts();
+    this.getContactinfo();
   },
   methods: {
     getProducts: function getProducts(event) {
@@ -2215,6 +2218,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (err) {
         return console.log(err);
       });
+    },
+    getContactinfo: function getContactinfo() {
+      this.about = this.$store.dispatch('getContactinfo');
     }
   }
 });
@@ -2877,7 +2883,7 @@ var render = function render() {
     staticClass: "about-text text-center mt-3"
   }, [_c("h2", {
     staticClass: "title text-center mb-2"
-  }, [_vm._v("Who We Are")]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.about.description_en))]), _vm._v(" "), _c("p", [_vm._v("Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, uctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. ")]), _vm._v(" "), _c("img", {
+  }, [_vm._v("Who We Are   ")]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.about.description_en))]), _vm._v(" "), _c("p", [_vm._v("Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, uctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. ")]), _vm._v(" "), _c("img", {
     staticClass: "mx-auto mb-5",
     attrs: {
       src: "assets/images/about/about-2/signature.png",
@@ -4275,7 +4281,18 @@ var render = function render() {
     staticClass: "header-middle"
   }, [_c("div", {
     staticClass: "container"
-  }, [_vm._m(1), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "header-left"
+  }, [_vm._m(1), _vm._v(" "), _c("a", {
+    staticClass: "logo",
+    attrs: {
+      href: "index.html"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: _vm.about.logo
+    }
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "header-center"
   }, [_c("div", {
     staticClass: "header-search header-search-extended header-search-visible d-none d-lg-block"
@@ -4422,27 +4439,13 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "header-left"
-  }, [_c("button", {
+  return _c("button", {
     staticClass: "mobile-menu-toggler"
   }, [_c("span", {
     staticClass: "sr-only"
   }, [_vm._v("Toggle mobile menu")]), _vm._v(" "), _c("i", {
     staticClass: "icon-bars"
-  })]), _vm._v(" "), _c("a", {
-    staticClass: "logo",
-    attrs: {
-      href: "index.html"
-    }
-  }, [_c("img", {
-    attrs: {
-      src: "front/assets/images/demos/demo-4/logo.png",
-      alt: "Molla Logo",
-      width: "105",
-      height: "25"
-    }
-  })])]);
+  })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -63148,6 +63151,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_4__["default"].Store({
         console.log(res);
         commit('setUserToken', res.data.data.token);
         localStorage.setItem('userTokenn', JSON.stringify('hgcychchchcghchgchghcgchgchgchgchg'));
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getContactinfo: function getContactinfo() {
+      axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo').then(function (res) {
+        console.log(res.data.data);
+        return res.data.data;
       })["catch"](function (err) {
         console.log(err);
       });

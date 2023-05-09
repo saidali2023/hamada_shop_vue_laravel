@@ -58,7 +58,7 @@
                 </button>
 
                 <a href="index.html" class="logo">
-                    <img src="front/assets/images/demos/demo-4/logo.png" alt="Molla Logo" width="105" height="25">
+                    <img :src="about.logo" >
                 </a>
             </div><!-- End .header-left -->
 
@@ -408,10 +408,12 @@ export default {
       return{
           products:{},
           name:'',
+          about:'',
       }
     },
     created() {
         this.getProducts();
+         this.getContactinfo();
     },
     methods: {
         getProducts(event){
@@ -424,6 +426,9 @@ export default {
                 this.$store.commit('saveSearchProducts',res.data)
             })
             .then(err => console.log(err))
+        },
+        getContactinfo(){
+             this.about =this.$store.dispatch('getContactinfo');
         }
    }
 }

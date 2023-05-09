@@ -173,7 +173,16 @@ const store = new Vuex.Store({
 
 
         },
-    
+        getContactinfo(){
+           axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
+           .then(res =>{
+             console.log(res.data.data);
+             return res.data.data;
+           })
+           .catch(err =>{
+             console.log(err)
+           })
+        },
 
     }
 
