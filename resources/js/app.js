@@ -42,7 +42,8 @@ import Axios from 'axios';
 
 import Vuex from 'vuex';
 Vue.use(Vuex)
-
+// https://stackoverflow.com/questions/71294692/how-to-fetch-data-from-api-in-vuex
+// https://medium.com/@esmaydogdu/vuex-fetch-b0e8472e7676
 const store = new Vuex.Store({
     state: {
         userToken:null,
@@ -51,7 +52,9 @@ const store = new Vuex.Store({
         EditedPost: {},
         searchProducts: {},
         // OrderDetails: {},
-        OrderDetails: '2'
+        OrderDetails: '2',
+        contactInfo:'',
+        categotries:[]
     },
     getters: { //center
         isLogged(state) {
@@ -62,7 +65,6 @@ const store = new Vuex.Store({
                 return state.user.is_admin
             }
             return null
-
         },
         PostToEdit(state) {
             return state.EditedPost
@@ -102,7 +104,14 @@ const store = new Vuex.Store({
         },
         saveOrderDetails(state, datails) {
             state.OrderDetails = datails;
-        }
+        },
+        updateContactinfo(state, contactinfo){
+          state.contactInfo = contactinfo;
+        },
+        updateCategotries(state, categotries){
+          state.categotries = categotries;
+        },
+
     },
     actions: {
         addToCart({ state },payload){
@@ -173,16 +182,26 @@ const store = new Vuex.Store({
 
 
         },
-        getContactinfo(){
+        getContactinfo({commit}){
            axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
-           .then(res =>{
-             console.log(res.data.data);
-             return res.data.data;
-           })
-           .catch(err =>{
-             console.log(err)
-           })
+          .then(res =>{
+            // console.log(res.data.data);
+            store.commit('updateContactinfo', res.data.data);
+          })
+          .catch(err =>{
+            console.log(err)
+          })
         },
+        getCategotries({commit}){
+            axios.get('https://elnamat.com/poems/eshop/api/buyers/categotries')
+            .then(res => {
+              console.log('Component mountvvvvmmmm.');
+              // console.log(res.data.data);
+                // this.categotries = res.data;
+                store.commit('updateCategotries', res.data.data);
+            })
+            .then(err => console.log(err))
+        }
 
     }
 

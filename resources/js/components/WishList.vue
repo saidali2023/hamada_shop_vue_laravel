@@ -89,12 +89,9 @@
             };
               axios.get('https://elnamat.com/poems/eshop/api/buyers/product/wishlists',headers)
               .then(res => {
-                console.log('Component mountvvvv.');
-
-                console.log(res.data.data);
-
+                // console.log('Component mountvvvv.');
+                // console.log(res.data.data);
                   this.wishlists = res.data;
-
                   // localStorage.setItem('posts',JSON.stringify(this.carts));
               })
               .then(err => console.log(err))

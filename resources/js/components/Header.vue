@@ -4,11 +4,9 @@
       <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
+                <a href="tel:#"><i class="icon-phone"></i>Call : +0123 456 789</a>
             </div><!-- End .header-left -->
-
             <div class="header-right">
-
                 <ul class="top-menu">
                     <li>
                         <a href="#">Links</a>
@@ -58,7 +56,8 @@
                 </button>
 
                 <a href="index.html" class="logo">
-                    <img :src="about.logo" >
+                    <img src="front/assets/images/demos/demo-4/logo.png" alt="Molla Logo" width="105" height="25">
+
                 </a>
             </div><!-- End .header-left -->
 
@@ -408,28 +407,38 @@ export default {
       return{
           products:{},
           name:'',
-          about:'',
+          contactinfo:'',
       }
     },
     created() {
         this.getProducts();
-         this.getContactinfo();
+         // this.getContactinfo();
     },
     methods: {
         getProducts(event){
             let name=event.target.value;
             axios.get('https://elnamat.com/poems/eshop/api/buyers/products/search?name='+name)
             .then(res => {
-                console.log(res.data);
-                console.log('bbbbbbb>>>>>>>>>>>>>>>>>');
+                // console.log(res.data);
+                // console.log('bbbbbbb>>>>>>>>>>>>>>>>>');
                 this.products = res.data;
                 this.$store.commit('saveSearchProducts',res.data)
             })
             .then(err => console.log(err))
         },
-        getContactinfo(){
-             this.about =this.$store.dispatch('getContactinfo');
-        }
+        // getContactinfo(){
+             //
+             //  axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
+             // .then(res =>{
+             //   this.contactinfo = res.data.data;
+             // })
+             // .catch(err =>{
+             //   console.log(err)
+             // })
+            //  this.contactinfo =this.$store.dispatch('getContactinfo');
+
+
+        // }
    }
 }
 </script>

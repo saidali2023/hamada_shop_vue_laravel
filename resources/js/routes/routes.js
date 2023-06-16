@@ -22,6 +22,7 @@ import MyOrder from '../components/MyOrder.vue'
 import OrderDetails from '../components/OrderDetails.vue'
 import Quiz from '../components/quiz.vue'
 import Timer from '../components/Timer.vue'
+import Check from '../components/Check.vue'
 
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
@@ -41,6 +42,7 @@ const routes = [
     { path: '/examplecomponent', component: ExampleComponent, name: 'ExampleComponent' },
     { path: '/quiz', component: Quiz, name: 'Quiz' },
     { path: '/timer', component: Timer, name: 'Timer' },
+    { path: '/check', component: Check, name: 'Check' },
 
 
 ];

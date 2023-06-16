@@ -514,8 +514,8 @@ export default {
      }
    },
    created(){
-     console.log(this.$route.params.id);
-     console.log(this.$store.state.userToken);
+     // console.log(this.$route.params.id);
+     // console.log(this.$store.state.userToken);
      this.getPost();
    },
    mounted() {

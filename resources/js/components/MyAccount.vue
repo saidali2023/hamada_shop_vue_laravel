@@ -201,8 +201,8 @@
           };
             axios.get('https://elnamat.com/poems/eshop/api/buyers/buyer-data',headers)
             .then(res => {
-              console.log('Component mooooooo.');
-              console.log(res.data.data);
+              // console.log('Component mooooooo.');
+              // console.log(res.data.data);
                 this.userData = res.data.data;
                 // localStorage.setItem('posts',JSON.stringify(this.carts));
             })

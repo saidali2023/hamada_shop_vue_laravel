@@ -19,9 +19,19 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1">
+                            <table>
+                             <tr>
+                               <th>Country</th>
+                               <!-- <th>Capital</th>
+                               <th>Population</th> -->
+                             </tr>
+                             <tr v-for="country in getCategotries" :key="country.id">
+                               <td>{{ country.id }}</td>
+                             </tr>
+                            </table>
                             <div class="about-text text-center mt-3">
                                 <h2 class="title text-center mb-2">Who We Are   </h2><!-- End .title text-center mb-2 -->
-                                <p>{{about.description_en }}</p>
+                                <p>{{contactInfo.description_ar}}</p>
                                 <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, uctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. </p>
                                 <img src="assets/images/about/about-2/signature.png" alt="signature" class="mx-auto mb-5">
 
@@ -350,24 +360,37 @@
 export default {
    data(){
      return {
-       about:'',
+       // abouttt:'',
      }
    },
-   created(){
-     this.getContactinfo();
+
+
+   computed:{
+     contactInfo(){
+       return this.$store.state.contactInfo
+     },
+     getCategotries(){
+       return this.$store.state.categotries
+     }
+   },
+   mounted(){
+     this.$store.dispatch('getContactinfo');
+     this.$store.dispatch('getCategotries');
    },
 
+   created(){
+     // this.getContactinfo();
+   },
    methods:{
-      getContactinfo(){
-       //   axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
-       //  .then(res =>{
-       //    this.about = res.data.data;
-       //  })
-       //  .catch(err =>{
-       //    console.log(err)
-       //  })
-           this.about =this.$store.dispatch('getContactinfo');
-      }
+      // getContactinfo(){
+      //    axios.get('https://elnamat.com/poems/eshop/api/buyers/contactinfo')
+      //   .then(res =>{
+      //     this.about = res.data.data;
+      //   })
+      //   .catch(err =>{
+      //     console.log(err)
+      //   })
+      // }
 
    }
 }
